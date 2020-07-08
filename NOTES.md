@@ -44,3 +44,7 @@ DESTROY / DELETE ROUTES:
   - Is when we want to update a resource, for example we made a typo and want to correct it. (edit, update)
 - Destroy / DELETE
   - Deleting a resource
+
+# User Authentication
+- it allows one user to have it's own resources
+- it prevents unwanted users to access resources

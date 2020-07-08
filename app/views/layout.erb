@@ -15,7 +15,17 @@
   </head>
   <body>
     <div class="wrapper">
-
+      <nav>
+        <ul>
+          <% unless logged_in? %>
+            <li><a href="/signup">Create Account</a></li>
+            <li><a href="/login">Login</a></li>
+          <% else %>
+            <li><%= current_user.username %></li>
+            <li><a href="/logout">Logout</a></li>
+          <% end %>
+        </ul>
+      </nav>
         <%= yield %>
 
       <footer class="branding">
