@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
+  use Rack::Flash
+
   get '/todos' do
     @todos = current_user.todos
     erb :'todos/index'
@@ -10,17 +12,23 @@ class TodosController < ApplicationController
   end
 
   post '/todos' do
-    @todo = Todo.new(params[:todo])
+    @todo = current_user.todos.build(params[:todo])
+    # @user = Todo.build_user()
     if @todo.save
       redirect '/todos'
     else
+      flash.now[:error] = @todo.errors.full_messages
       erb :'todos/new'
     end
   end
 
   get '/todos/:id/edit' do
     set_todo
-    erb :'todos/edit'
+    if current_user == @todo.user
+      erb :'todos/edit'
+    else
+      redirect '/todos'
+    end
   end
 
   get '/todos/:id' do
@@ -34,7 +42,7 @@ class TodosController < ApplicationController
 
   patch '/todos/:id' do
     set_todo
-    if @todo.update(
+    if current_user == @todo.user && @todo.update(
           title: params[:todo][:title],
           completed: params[:todo][:completed]
        )
@@ -46,7 +54,9 @@ class TodosController < ApplicationController
 
   delete '/todos/:id' do
     set_todo
-    @todo.destroy
+    if current_user == @todo.user
+      @todo.destroy
+    end
     redirect '/todos'
   end
   
