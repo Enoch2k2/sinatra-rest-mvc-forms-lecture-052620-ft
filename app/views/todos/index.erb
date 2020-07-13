@@ -1,5 +1,22 @@
 <h1>Todos List</h1>
 <hr>
+<div class="row">
 <% @todos.each do |todo| %>
-  <p><a href="/todos/<%= todo.id %>"><%= todo.title %></a></p>
+    <div class="col s12 m6 l4">
+      <div class="card indigo darken-4">
+        <div class="card-content white-text">
+          <span class="card-title"><%= todo.title %></span>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad, labore iure. Eum mollitia provident consequatur fugit, natus odio labore sapiente corrupti officiis nihil placeat vero aut possimus sit necessitatibus culpa.</p>
+        </div>
+        <div class="card-action">
+          <a href="/todos/<%= todo.id %>">View</a>
+          <a href="/todos/<%= todo.id %>/edit">Edit</a>
+        </div>
+      </div>
+    </div>
+ 
 <% end %>
+</div>
+
+<!--
+ <p><a href="/todos/<%# todo.id %>"><%# todo.title %></a></p> -->
